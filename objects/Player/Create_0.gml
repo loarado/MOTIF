@@ -17,6 +17,12 @@ if (!variable_global_exists("ending_timer")) global.ending_timer = 0;
 if (!variable_global_exists("ending_alpha")) global.ending_alpha = 0;
 if (!variable_global_exists("ending_blink_frame")) global.ending_blink_frame = 14;
 if (!variable_global_exists("ending_fanfare_handle")) global.ending_fanfare_handle = -1;
+if (!variable_global_exists("pause_menu_open")) global.pause_menu_open = false;
+if (!variable_global_exists("sound_effects_enabled")) global.sound_effects_enabled = true;
+if (!variable_global_exists("music_enabled")) global.music_enabled = true;
+audio_group_load(audiogroup_sfx);
+audio_group_set_gain(audiogroup_sfx, global.sound_effects_enabled ? 1 : 0, 0);
+audio_group_set_gain(audiogroup_default, global.music_enabled ? 1 : 0, 0);
 if (global.gameplay_music_handle == -1 || !audio_is_playing(global.gameplay_music_handle)) {
     global.gameplay_music_handle = audio_play_sound(play_in_intro_sequences_1_2_3_4_5_then_15_and_throughout_gameplay, 0, true);
 }

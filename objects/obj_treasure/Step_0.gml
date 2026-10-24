@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 if (place_meeting(x, y, Player)) {
     audio_play_sound(sound_for_picking_up_treasure, 1, false);
     

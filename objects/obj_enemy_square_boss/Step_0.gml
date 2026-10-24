@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 if (ds_grid_get_max(enemy_hp_grid, 0, 0, enemy_grid_width - 1, enemy_grid_height - 1) <= 0) {
     if (instance_exists(Player)) {
         Player.points += 250;

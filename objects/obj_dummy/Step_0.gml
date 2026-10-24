@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 // Ensure the grid exists
 if (!variable_instance_exists(id, "enemy_hp_grid") || is_array(enemy_hp_grid)) {
     enemy_grid_width = 3;

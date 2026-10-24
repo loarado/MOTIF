@@ -2,8 +2,8 @@
   "$GMSound":"v2",
   "%Name":"rumble_for_when_the_start_button_is_shaking",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"audiogroup_sfx",
+    "path":"audiogroups/audiogroup_sfx",
   },
   "bitDepth":1,
   "channelFormat":0,

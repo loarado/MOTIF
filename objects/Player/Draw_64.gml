@@ -371,3 +371,71 @@ if (global.game_beaten && global.ending_state != "none") {
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
 }
+
+// Gear pause button and its sound/music settings panel.
+if (!global.game_beaten) {
+    var _settings_gui_w = display_get_gui_width();
+    var _gear_button_left = _settings_gui_w - 68;
+    var _gear_cx = _settings_gui_w - 40;
+    var _gear_cy = 40;
+    draw_set_color(c_black);
+    draw_roundrect_ext(_gear_button_left, 12, _settings_gui_w - 12, 68, 6, 6, false);
+    draw_set_color(c_white);
+    draw_roundrect_ext(_gear_button_left + 3, 15, _settings_gui_w - 15, 65, 5, 5, false);
+    draw_set_color(c_black);
+    draw_circle(_gear_cx, _gear_cy, 12, true);
+    draw_set_color(c_white);
+    draw_circle(_gear_cx, _gear_cy, 5, false);
+    draw_set_color(c_black);
+    for (var _tooth = 0; _tooth < 8; _tooth++) {
+        var _gear_a = _tooth * 45;
+        draw_line_width(
+            _gear_cx + lengthdir_x(12, _gear_a),
+            _gear_cy + lengthdir_y(12, _gear_a),
+            _gear_cx + lengthdir_x(17, _gear_a),
+            _gear_cy + lengthdir_y(17, _gear_a), 4);
+    }
+    draw_set_halign(fa_left);
+    if (global.pause_menu_open) {
+        var _panel_x = _settings_gui_w - 252;
+        var _panel_y = 68;
+        draw_set_alpha(0.65);
+        draw_set_color(c_black);
+        draw_rectangle(0, 0, display_get_gui_width(), display_get_gui_height(), false);
+        draw_set_alpha(1);
+        draw_set_color(c_dkgray);
+        draw_rectangle(_panel_x, _panel_y, _panel_x + 252, _panel_y + 168, false);
+        draw_set_color(c_white);
+        draw_rectangle(_panel_x, _panel_y, _panel_x + 252, _panel_y + 168, true);
+
+        draw_set_halign(fa_center);
+        draw_text(_panel_x + 126, _panel_y + 12, "PAUSED - CLICK GEAR TO RESUME");
+        draw_set_halign(fa_left);
+        draw_set_color(global.sound_effects_enabled ? c_lime : c_gray);
+        draw_rectangle(_panel_x + 16, _panel_y + 48, _panel_x + 236, _panel_y + 92, false);
+        draw_set_color(c_white);
+        draw_rectangle(_panel_x + 16, _panel_y + 48, _panel_x + 236, _panel_y + 92, true);
+        // Speaker icon.
+        draw_set_color(global.sound_effects_enabled ? c_lime : c_gray);
+        draw_rectangle(_panel_x + 29, _panel_y + 64, _panel_x + 36, _panel_y + 77, false);
+        draw_triangle(_panel_x + 36, _panel_y + 61, _panel_x + 49, _panel_y + 53, _panel_x + 49, _panel_y + 85, false);
+        if (!global.sound_effects_enabled) draw_line_width(_panel_x + 27, _panel_y + 57, _panel_x + 51, _panel_y + 83, 3);
+        draw_set_color(c_white);
+        draw_text(_panel_x + 62, _panel_y + 60, "SOUND FX: " + (global.sound_effects_enabled ? "ON" : "OFF"));
+
+        draw_set_color(global.music_enabled ? c_lime : c_gray);
+        draw_rectangle(_panel_x + 16, _panel_y + 104, _panel_x + 236, _panel_y + 148, false);
+        draw_set_color(c_white);
+        draw_rectangle(_panel_x + 16, _panel_y + 104, _panel_x + 236, _panel_y + 148, true);
+        // Musical note icon.
+        draw_line_width(_panel_x + 37, _panel_y + 113, _panel_x + 37, _panel_y + 135, 3);
+        draw_line_width(_panel_x + 37, _panel_y + 113, _panel_x + 50, _panel_y + 109, 3);
+        draw_line_width(_panel_x + 50, _panel_y + 109, _panel_x + 50, _panel_y + 130, 3);
+        draw_circle(_panel_x + 33, _panel_y + 137, 5, false);
+        draw_circle(_panel_x + 46, _panel_y + 132, 5, false);
+        if (!global.music_enabled) draw_line_width(_panel_x + 27, _panel_y + 108, _panel_x + 53, _panel_y + 140, 3);
+        draw_set_color(c_white);
+        draw_text(_panel_x + 62, _panel_y + 116, "MUSIC: " + (global.music_enabled ? "ON" : "OFF"));
+        draw_set_halign(fa_left);
+    }
+}

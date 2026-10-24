@@ -1,3 +1,33 @@
+// Pause/settings menu input. Opening it freezes gameplay objects until it is closed.
+if (!global.game_beaten) {
+    var _pause_gui_w = display_get_gui_width();
+    var _pause_gui_h = display_get_gui_height();
+    var _pause_mx = device_mouse_x_to_gui(0);
+    var _pause_my = device_mouse_y_to_gui(0);
+    var _gear_left = _pause_gui_w - 68;
+    var _gear_top = 12;
+    var _gear_right = _pause_gui_w - 12;
+    var _gear_bottom = 68;
+    if (mouse_check_button_pressed(mb_left)) {
+        if (point_in_rectangle(_pause_mx, _pause_my, _gear_left, _gear_top, _gear_right, _gear_bottom)) {
+            global.pause_menu_open = !global.pause_menu_open;
+        } else if (global.pause_menu_open) {
+            var _panel_left = _pause_gui_w - 252;
+            var _panel_top = 68;
+            if (point_in_rectangle(_pause_mx, _pause_my, _panel_left + 16, _panel_top + 48, _panel_left + 236, _panel_top + 92)) {
+                global.sound_effects_enabled = !global.sound_effects_enabled;
+                audio_group_set_gain(audiogroup_sfx, global.sound_effects_enabled ? 1 : 0, 120);
+            } else if (point_in_rectangle(_pause_mx, _pause_my, _panel_left + 16, _panel_top + 104, _panel_left + 236, _panel_top + 148)) {
+                global.music_enabled = !global.music_enabled;
+                audio_group_set_gain(audiogroup_default, global.music_enabled ? 1 : 0, 180);
+            } else if (!point_in_rectangle(_pause_mx, _pause_my, _panel_left, _panel_top, _panel_left + 252, _panel_top + 168)) {
+                global.pause_menu_open = false;
+            }
+        }
+    }
+}
+if (global.pause_menu_open) exit;
+
 // Test shortcut: 777 advances one dungeon; in the Circle Dungeon, 777 enables god mode.
 if (room == Game_Test && trial_step > 0 && !global.game_beaten) {
     var _fps_777 = max(1, game_get_speed(gamespeed_fps));

@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 if (!variable_global_exists("hard_mode")) global.hard_mode = false;
 
 var _player_on_button = place_meeting(x, y, Player);

@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 if (!instance_exists(owner_id)) { instance_destroy(); exit; }
 if (block_sound_cooldown > 0) block_sound_cooldown--;
 

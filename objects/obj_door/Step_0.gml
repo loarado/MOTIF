@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 // 1. Lock the door if an enemy or uncollected treasure is in the room
 if (global.game_beaten) {
     locked = true;

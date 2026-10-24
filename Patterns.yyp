@@ -3,6 +3,7 @@
   "%Name":"Patterns",
   "AudioGroups":[
     {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_sfx","exportDir":"","name":"audiogroup_sfx","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
     "children":[],
@@ -74,7 +75,9 @@
     {"id":{"name":"back_idle_player","path":"sprites/back_idle_player/back_idle_player.yy",},},
     {"id":{"name":"back_walk_player","path":"sprites/back_walk_player/back_walk_player.yy",},},
     {"id":{"name":"BackgroundTitle","path":"sprites/BackgroundTitle/BackgroundTitle.yy",},},
+    {"id":{"name":"bed","path":"sprites/bed/bed.yy",},},
     {"id":{"name":"blink_animation","path":"sprites/blink_animation/blink_animation.yy",},},
+    {"id":{"name":"chest","path":"sprites/chest/chest.yy",},},
     {"id":{"name":"clickTo","path":"sprites/clickTo/clickTo.yy",},},
     {"id":{"name":"clickTo2","path":"sprites/clickTo2/clickTo2.yy",},},
     {"id":{"name":"door_info","path":"sprites/door_info/door_info.yy",},},
@@ -85,6 +88,7 @@
     {"id":{"name":"left_idle_player","path":"sprites/left_idle_player/left_idle_player.yy",},},
     {"id":{"name":"left_walk_player","path":"sprites/left_walk_player/left_walk_player.yy",},},
     {"id":{"name":"lovely","path":"sprites/lovely/lovely.yy",},},
+    {"id":{"name":"play_with_sound","path":"sprites/play_with_sound/play_with_sound.yy",},},
     {"id":{"name":"playerTestSprite","path":"sprites/playerTestSprite/playerTestSprite.yy",},},
     {"id":{"name":"right_idle_player","path":"sprites/right_idle_player/right_idle_player.yy",},},
     {"id":{"name":"right_walk_player","path":"sprites/right_walk_player/right_walk_player.yy",},},

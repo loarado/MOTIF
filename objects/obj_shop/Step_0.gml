@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 if (place_meeting(x, y, Player) && keyboard_check_pressed(ord("E"))) {
     // Example: Spend 10 coins to permanently increase starting armor
     if (global.total_coins >= 10) {

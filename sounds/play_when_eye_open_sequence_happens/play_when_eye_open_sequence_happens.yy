@@ -2,8 +2,8 @@
   "$GMSound":"v2",
   "%Name":"play_when_eye_open_sequence_happens",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"audiogroup_sfx",
+    "path":"audiogroups/audiogroup_sfx",
   },
   "bitDepth":1,
   "channelFormat":0,

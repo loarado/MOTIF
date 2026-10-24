@@ -1,3 +1,4 @@
+if (global.pause_menu_open) exit;
 // Debug god mode clears projectiles before they can hit the player.
 if (variable_global_exists("dev_god_mode") && global.dev_god_mode) { instance_destroy(); exit; }
 
