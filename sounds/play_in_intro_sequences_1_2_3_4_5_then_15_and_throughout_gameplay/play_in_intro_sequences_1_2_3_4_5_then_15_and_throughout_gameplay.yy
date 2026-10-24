@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"play_in_intro_sequences_1_2_3_4_5_then_15_and_throughout_gameplay",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":155.4547,
+  "exportDir":"",
+  "name":"play_in_intro_sequences_1_2_3_4_5_then_15_and_throughout_gameplay",
+  "parent":{
+    "name":"Patterns",
+    "path":"Patterns.yyp",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"play_in_intro_sequences_1_2_3_4_5_then_15_and_throughout_gameplay.mp3",
+  "volume":0.6,
+}

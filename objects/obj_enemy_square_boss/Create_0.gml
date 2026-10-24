@@ -1,35 +1,20 @@
-enemy_grid_width = 3;
-enemy_grid_height = 3;
+enemy_grid_width = 5;
+enemy_grid_height = 5;
 cell_size = 32;
 enemy_hp_grid = ds_grid_create(enemy_grid_width, enemy_grid_height);
 ds_grid_clear(enemy_hp_grid, 1);
-
-image_blend = c_orange;
-is_boss = false;
-
-// Regular square-route movement settings.
-square_radius = irandom_range(55, 80);
-square_angle = random(360);
-var _center_x = clamp(x, 96 + square_radius, room_width - 96 - square_radius);
-var _center_y = clamp(y, 96 + square_radius, room_height - 96 - square_radius);
-square_vertices = [];
-for (var i = 0; i < 4; i++) {
-    array_push(square_vertices, [
-        _center_x + lengthdir_x(square_radius, square_angle + (i * 90)),
-        _center_y + lengthdir_y(square_radius, square_angle + (i * 90))
-    ]);
-}
-move_target_index = 0;
-move_speed = 1.8;
-rotate_speed = 2;
-image_angle = square_angle;
-
-// The Square fires four projectiles and damages a 2x2 area.
-shoot_timer = 65;
-spiral_angle = 0;
-move_angle = 0;
-move_radius = 48;
-orbit_speed = 2;
-anchor_x = x;
-anchor_y = y;
-attack_shape = [[0, 0], [1, 0], [0, 1], [1, 1]];
+if (global.hard_mode) ds_grid_set_region(enemy_hp_grid, 0, 0, enemy_grid_width - 1, enemy_grid_height - 1, 2);
+image_blend = c_aqua;
+image_xscale = 1.5;
+image_yscale = 1.5;
+x = room_width / 2;
+y = room_height / 2;
+boss_phase = "idle";
+boss_timer = global.hard_mode ? 105 : 150;
+boss_warning_timer = global.hard_mode ? 75 : 100;
+boss_warning_max = global.hard_mode ? 75 : 100;
+boss_corner = irandom(3); // TL, TR, BL, BR
+shoot_timer = global.hard_mode ? 38 : 55;
+attack_shape = global.hard_mode
+    ? [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]]
+    : [[0,0],[1,0],[0,1],[1,1]];

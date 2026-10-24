@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"playerTestSprite",
-    "path":"sprites/playerTestSprite/playerTestSprite.yy",
+    "name":"front_idle_player",
+    "path":"sprites/front_idle_player/front_idle_player.yy",
   },
   "spriteMaskId":null,
   "visible":true,

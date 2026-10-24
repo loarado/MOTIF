@@ -1,0 +1,27 @@
+base_x = x; base_y = y;
+challenge_active = false; challenge_complete = false;
+intro_state = "title";
+fade_alpha = 0;
+intro_timer = 0;
+cutscene_index = 0;
+previous_scene = 2;
+zoom_index = 8;
+blink_frame = 0;
+skip_777_count = 0;
+skip_777_timer = 0;
+shake_timer = 0; shake_time = 0;
+rumble_fade_timer = 0;
+rumble_fade_started = false;
+rumble_sound_handle = -1;
+challenge_cols = 4; challenge_rows = 2; challenge_cell = 96;
+challenge_hp = array_create(challenge_cols);
+for (var _x = 0; _x < challenge_cols; _x++) {
+    challenge_hp[_x] = array_create(challenge_rows, 1);
+}
+challenge_shapes = [[[0,0],[1,0],[1,1]], [[0,0],[1,0],[2,0],[1,1]]];
+dragging_shape = -1;
+drag_grab_cell_x = 0;
+drag_grab_cell_y = 0;
+global.intro_game_fade = 0;
+if (!variable_global_exists("gameplay_music_handle")) global.gameplay_music_handle = -1;
+if (!variable_global_exists("intro_hum_handle")) global.intro_hum_handle = -1;

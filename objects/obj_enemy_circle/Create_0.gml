@@ -34,3 +34,13 @@ target_y = y;
 shoot_timer = 35;
 spiral_angle = 0;
 attack_shape = [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]];
+if (global.hard_mode) {
+    for (var _x = 0; _x < enemy_grid_width; _x++) for (var _y = 0; _y < enemy_grid_height; _y++) {
+        if (ds_grid_get(enemy_hp_grid, _x, _y) > 0) ds_grid_set(enemy_hp_grid, _x, _y, 2);
+    }
+    move_speed = 3;
+    orbit_speed = 2;
+    phase_timer = irandom_range(120, 170);
+    shoot_timer = 23;
+    attack_shape = [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2]];
+}

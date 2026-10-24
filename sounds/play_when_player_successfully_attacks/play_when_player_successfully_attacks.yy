@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"play_when_player_successfully_attacks",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.20294784,
+  "exportDir":"",
+  "name":"play_when_player_successfully_attacks",
+  "parent":{
+    "name":"Patterns",
+    "path":"Patterns.yyp",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"play_when_player_successfully_attacks.ogg",
+  "volume":1.0,
+}

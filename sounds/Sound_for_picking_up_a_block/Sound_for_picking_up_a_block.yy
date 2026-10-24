@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Sound_for_picking_up_a_block",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.0075510205,
+  "exportDir":"",
+  "name":"Sound_for_picking_up_a_block",
+  "parent":{
+    "name":"Patterns",
+    "path":"Patterns.yyp",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Sound_for_picking_up_a_block.wav",
+  "volume":1.0,
+}

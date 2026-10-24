@@ -1,62 +1,47 @@
 if (ds_grid_get_max(enemy_hp_grid, 0, 0, enemy_grid_width - 1, enemy_grid_height - 1) <= 0) {
     if (instance_exists(Player)) {
-        global.combat_active = false;
-        Player.is_dragging = false;
-        global.target_enemy = noone;
+        Player.points += 250;
+        audio_play_sound(sound_for_defeating_enemy_or_boss, 1, false);
+        if (global.target_enemy == id) { global.combat_active = false; Player.is_dragging = false; global.target_enemy = noone; }
     }
-    ds_grid_destroy(enemy_hp_grid);
-    instance_destroy();
-    exit;
+    ds_grid_destroy(enemy_hp_grid); instance_destroy(); exit;
 }
-
-if (!global.combat_active) {
-    if (is_boss) {
-        // Preserve the existing boss's circular movement and four-way attack.
-        move_angle = (move_angle + orbit_speed) mod 360;
-        x = anchor_x + lengthdir_x(move_radius, move_angle);
-        y = anchor_y + lengthdir_y(move_radius, move_angle);
+if (global.combat_active) exit;
+x = room_width / 2;
+y = room_height / 2;
+if (boss_phase == "idle") {
+    boss_timer--;
+    if (boss_timer <= 0) { boss_corner = irandom(3); boss_warning_timer = boss_warning_max; boss_phase = "telegraph"; }
+} else {
+    if (boss_warning_timer > 0) {
+        boss_warning_timer--;
     } else {
-        // Travel the four corners of a random square, then choose a new square.
-        if (move_target_index >= 4) {
-            square_radius = irandom_range(55, 80);
-            square_angle = random(360);
-            var _center_x = irandom_range(96 + square_radius, room_width - 96 - square_radius);
-            var _center_y = irandom_range(96 + square_radius, room_height - 96 - square_radius);
-            square_vertices = [];
-            for (var i = 0; i < 4; i++) {
-                array_push(square_vertices, [
-                    _center_x + lengthdir_x(square_radius, square_angle + (i * 90)),
-                    _center_y + lengthdir_y(square_radius, square_angle + (i * 90))
-                ]);
-            }
-            move_target_index = 0;
+        var _px = Player.x + sprite_get_width(Player.sprite_index) * abs(Player.image_xscale) / 2;
+        var _py = Player.y + sprite_get_height(Player.sprite_index) * abs(Player.image_yscale) / 2;
+        var _left = (boss_corner mod 2 == 0);
+        var _top = (boss_corner < 2);
+        var _in_x = _left ? (_px < room_width / 2) : (_px >= room_width / 2);
+        var _in_y = _top ? (_py < room_height / 2) : (_py >= room_height / 2);
+        if (_in_x && _in_y) {
+            audio_play_sound(damage_sound_effect, 1, false);
+            var _x0 = _left ? 0 : floor(Player.grid_width / 2);
+            var _x1 = _left ? ceil(Player.grid_width / 2) - 1 : Player.grid_width - 1;
+            var _y0 = _top ? 0 : floor(Player.grid_height / 2);
+            var _y1 = _top ? ceil(Player.grid_height / 2) - 1 : Player.grid_height - 1;
+            for (var _gx = _x0; _gx <= _x1; _gx++) for (var _gy = _y0; _gy <= _y1; _gy++) Player.hp_grid[_gx][_gy] = -1;
         }
-
-        var _target_x = square_vertices[move_target_index][0];
-        var _target_y = square_vertices[move_target_index][1];
-        var _distance = point_distance(x, y, _target_x, _target_y);
-        if (_distance <= move_speed) {
-            x = _target_x;
-            y = _target_y;
-            move_target_index++;
-        } else {
-            var _move_dir = point_direction(x, y, _target_x, _target_y);
-            x += lengthdir_x(move_speed, _move_dir);
-            y += lengthdir_y(move_speed, _move_dir);
-        }
-        image_angle = (image_angle + rotate_speed) mod 360;
+        boss_phase = "idle"; boss_timer = global.hard_mode ? 105 : 180;
     }
-
-    // Both the Square and the existing boss fire four projectiles.
-    shoot_timer--;
-    if (shoot_timer <= 0) {
-        shoot_timer = 65;
-        for (var i = 0; i < 4; i++) {
-            var _projectile = instance_create_layer(x, y, layer, obj_projectile);
-            _projectile.move_dir = spiral_angle + (i * 90);
-            _projectile.move_spd = 3;
-            _projectile.damage_shape = attack_shape;
-        }
-        spiral_angle = (spiral_angle + 20) mod 360;
+}
+shoot_timer--;
+if (shoot_timer <= 0 && instance_exists(Player)) {
+    shoot_timer = global.hard_mode ? 38 : 70;
+    var _cx = x; var _cy = y;
+    var _dir = point_direction(_cx, _cy, Player.x + sprite_get_width(Player.sprite_index) / 2, Player.y + sprite_get_height(Player.sprite_index) / 2);
+    var _spread_count = global.hard_mode ? 5 : 3;
+    for (var _i = 0; _i < _spread_count; _i++) {
+        var _p = instance_create_layer(_cx - sprite_get_width(spr_projectile) / 2, _cy - sprite_get_height(spr_projectile) / 2, layer, obj_projectile);
+        _p.move_dir = _dir + (_i - ((_spread_count - 1) / 2)) * (global.hard_mode ? 11 : 12);
+        _p.move_spd = global.hard_mode ? 5.3 : 4; _p.damage_shape = attack_shape;
     }
 }

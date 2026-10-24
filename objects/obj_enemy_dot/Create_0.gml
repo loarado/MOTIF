@@ -9,3 +9,9 @@ move_timer = irandom_range(90, 150);
 move_speed = 0.65;
 shoot_timer = 100;
 attack_shape = [[0, 0]];
+if (global.hard_mode) {
+    for (var _x = 0; _x < enemy_grid_width; _x++) for (var _y = 0; _y < enemy_grid_height; _y++) ds_grid_set(enemy_hp_grid, _x, _y, 2);
+    move_speed = 1.05;
+    shoot_timer = 55;
+    attack_shape = [[0, 0], [1, 0]];
+}

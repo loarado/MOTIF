@@ -19,9 +19,18 @@ move_vertices = [
 ];
 move_target_index = 0;
 move_speed = 1.5;
-rotate_speed = 1;
+rotate_speed = 0.35;
 shoot_timer = 100;
 spiral_angle = 0;
 
 // L-shaped damage pattern.
 attack_shape = [[0, 0], [0, 1], [1, 1]];
+if (global.hard_mode) {
+    for (var _x = 0; _x < enemy_grid_width; _x++) for (var _y = 0; _y < enemy_grid_height; _y++) {
+        if (ds_grid_get(enemy_hp_grid, _x, _y) > 0) ds_grid_set(enemy_hp_grid, _x, _y, 2);
+    }
+    move_speed = 2.25;
+    rotate_speed = 0.6;
+    shoot_timer = 60;
+    attack_shape = [[0, 0], [0, 1], [1, 1], [2, 1]];
+}

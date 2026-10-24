@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"sound_for_picking_up_treasure",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":1.5673469,
+  "exportDir":"",
+  "name":"sound_for_picking_up_treasure",
+  "parent":{
+    "name":"Patterns",
+    "path":"Patterns.yyp",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sound_for_picking_up_treasure.mp3",
+  "volume":1.0,
+}

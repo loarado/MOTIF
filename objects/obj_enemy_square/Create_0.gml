@@ -8,7 +8,7 @@ image_blend = c_orange;
 is_boss = false;
 
 // Regular square-route movement settings.
-square_radius = irandom_range(55, 80);
+square_radius = global.hard_mode ? irandom_range(75, 105) : irandom_range(55, 80);
 square_angle = random(360);
 var _center_x = clamp(x, 96 + square_radius, room_width - 96 - square_radius);
 var _center_y = clamp(y, 96 + square_radius, room_height - 96 - square_radius);
@@ -21,7 +21,7 @@ for (var i = 0; i < 4; i++) {
 }
 move_target_index = 0;
 move_speed = 1.8;
-rotate_speed = 2;
+rotate_speed = 0.5;
 image_angle = square_angle;
 
 // The Square fires four projectiles and damages a 2x2 area.
@@ -33,3 +33,10 @@ orbit_speed = 2;
 anchor_x = x;
 anchor_y = y;
 attack_shape = [[0, 0], [1, 0], [0, 1], [1, 1]];
+if (global.hard_mode) {
+    for (var _x = 0; _x < enemy_grid_width; _x++) for (var _y = 0; _y < enemy_grid_height; _y++) ds_grid_set(enemy_hp_grid, _x, _y, 2);
+    move_speed = 2.7;
+    rotate_speed = 0.9;
+    shoot_timer = 38;
+    attack_shape = [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1]];
+}

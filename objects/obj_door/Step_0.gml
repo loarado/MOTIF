@@ -1,5 +1,10 @@
 // 1. Lock the door if an enemy or uncollected treasure is in the room
-if (instance_exists(obj_enemy_dot) || instance_exists(obj_enemy_triangle) || instance_exists(obj_enemy_square) || instance_exists(obj_enemy_circle) || instance_exists(obj_treasure)) {
+if (global.game_beaten) {
+    locked = true;
+    exit;
+}
+
+if (instance_exists(obj_enemy_dot) || instance_exists(obj_enemy_triangle) || instance_exists(obj_enemy_square) || instance_exists(obj_enemy_circle) || instance_exists(obj_enemy_triangle_boss) || instance_exists(obj_enemy_square_boss) || instance_exists(obj_enemy_circle_boss) || instance_exists(obj_treasure)) {
     locked = true;
 } else {
     locked = false;
@@ -7,6 +12,13 @@ if (instance_exists(obj_enemy_dot) || instance_exists(obj_enemy_triangle) || ins
 
 // 2. Advance to the next room when Player touches an unlocked door
 if (!locked && place_meeting(x, y, Player)) {
+
+    // The hub door enters the trial room; its first encounter spawns on arrival.
+    if (room == Starting_Room) {
+        global.start_trial_on_enter = true;
+        room_goto(Game_Test);
+        exit;
+    }
     
     // Clear any stray projectiles left in the air
     with (obj_projectile) instance_destroy();
@@ -16,11 +28,21 @@ if (!locked && place_meeting(x, y, Player)) {
     if (Player.current_room_type == "start") Player.dungeon_title_timer = 180;
     
     // After the boss, advance to the next dungeon and start its first room.
+    var _changed_dungeon = false;
     if (Player.trial_step > array_length(Player.trial_deck)) {
         Player.trial_step = 1;
         Player.dungeon_index = (Player.dungeon_index + 1) mod array_length(Player.trial_decks);
         Player.trial_deck = Player.trial_decks[Player.dungeon_index];
         Player.dungeon_title_timer = 180;
+        _changed_dungeon = true;
+    }
+    if (_changed_dungeon) {
+        for (var _gx = 0; _gx < Player.grid_width; _gx++) {
+            for (var _gy = 0; _gy < Player.grid_height; _gy++) {
+                // Restore lost health without granting the armor values in hp_max_grid.
+                if (Player.hp_grid[_gx][_gy] <= 0) Player.hp_grid[_gx][_gy] = 1;
+            }
+        }
     }
     
     // Get the current room scenario (enemy type, treasure, or boss).
@@ -84,18 +106,24 @@ if (!locked && place_meeting(x, y, Player)) {
     var _cx = room_width / 2;
     var _cy = room_height / 2;
     
-    if (_room_type == "dot") {
-        instance_create_layer(_cx, _cy, layer, obj_enemy_dot);
+    var _enemy_object = noone;
+    if (_room_type == "dot") _enemy_object = obj_enemy_dot;
+    else if (_room_type == "triangle") _enemy_object = obj_enemy_triangle;
+    else if (_room_type == "square") _enemy_object = obj_enemy_square;
+    else if (_room_type == "circle") _enemy_object = obj_enemy_circle;
+    if (_enemy_object != noone) {
+        var _enemy_count = global.hard_mode ? ((Player.dungeon_index == 1) ? 2 : ((Player.dungeon_index == 2) ? 3 : 1)) : 1;
+        for (var _i = 0; _i < _enemy_count; _i++) {
+            var _spawn_x = _cx;
+            var _spawn_y = _cy;
+            if (_enemy_count == 2) _spawn_x += (_i == 0) ? -128 : 128;
+            else if (_enemy_count == 3) {
+                _spawn_x += (_i == 0) ? 0 : ((_i == 1) ? -128 : 128);
+                _spawn_y += (_i == 0) ? -96 : 80;
+            }
+            instance_create_layer(_spawn_x, _spawn_y, layer, _enemy_object);
+        }
     }
-    else if (_room_type == "triangle") {
-        instance_create_layer(_cx, _cy, layer, obj_enemy_triangle);
-    }
-    else if (_room_type == "square") {
-        instance_create_layer(_cx, _cy, layer, obj_enemy_square);
-    }
-    else if (_room_type == "circle") {
-        instance_create_layer(_cx, _cy, layer, obj_enemy_circle);
-    } 
     else if (_room_type == "treasure") {
         var _pool = [
             ["armor", "ARMOR + HEAL"],
@@ -105,34 +133,26 @@ if (!locked && place_meeting(x, y, Player)) {
         if (Player.grid_width < 5) array_push(_pool, ["expand_grid", "GRID SIZE +1"]);
         _pool = array_shuffle(_pool);
         
-        // Spawn Left Choice
-        var _t1 = instance_create_layer(_cx - 96, _cy, layer, obj_treasure);
+        var _choice_count = (global.hard_mode || Player.dungeon_index == 2) ? 3 : 2;
+        var _choice_spacing = (_choice_count == 3) ? 160 : 96;
+        var _t1 = instance_create_layer(_cx - _choice_spacing, _cy, layer, obj_treasure);
         _t1.upgrade_type = _pool[0][0];
         _t1.upgrade_name = _pool[0][1];
         
-        // Spawn Right Choice
-        var _t2 = instance_create_layer(_cx + 96, _cy, layer, obj_treasure);
+        var _t2_x = (_choice_count == 3) ? _cx : _cx + _choice_spacing;
+        var _t2 = instance_create_layer(_t2_x, _cy, layer, obj_treasure);
         _t2.upgrade_type = _pool[1][0];
         _t2.upgrade_name = _pool[1][1];
+        if (_choice_count == 3) {
+            var _t3 = instance_create_layer(_cx + _choice_spacing, _cy, layer, obj_treasure);
+            _t3.upgrade_type = _pool[2][0];
+            _t3.upgrade_name = _pool[2][1];
+        }
     }
     else if (_room_type == "boss") {
-        var _boss = instance_create_layer(_cx, _cy, layer, obj_enemy_square);
-        
-        // Upgrade the Boss to a 5x5 health grid and larger sprite!
-        with (_boss) {
-            ds_grid_destroy(enemy_hp_grid);
-            enemy_grid_width = 5;
-            enemy_grid_height = 5;
-            enemy_hp_grid = ds_grid_create(5, 5);
-            ds_grid_clear(enemy_hp_grid, 1);
-            image_xscale = 2;
-            image_yscale = 2;
-            image_angle = 0;
-            image_blend = c_white;
-            is_boss = true;
-            shoot_timer = 45;
-            attack_shape = [[0, 0], [0, 1], [1, 1]];
-        }
+        if (Player.dungeon_index == 0) instance_create_layer(_cx, _cy, layer, obj_enemy_triangle_boss);
+        else if (Player.dungeon_index == 1) instance_create_layer(_cx, _cy, layer, obj_enemy_square_boss);
+        else instance_create_layer(_cx, _cy, layer, obj_enemy_circle_boss);
     }
 	
 }

@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Sound_of_sword_swinging_for_attack",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.7837415,
+  "exportDir":"",
+  "name":"Sound_of_sword_swinging_for_attack",
+  "parent":{
+    "name":"Patterns",
+    "path":"Patterns.yyp",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Sound_of_sword_swinging_for_attack.wav",
+  "volume":1.0,
+}

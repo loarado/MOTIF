@@ -17,20 +17,33 @@ ds_grid_set(enemy_hp_grid, 0, 2, 1);
 ds_grid_set(enemy_hp_grid, 0, 3, 1);
 ds_grid_set(enemy_hp_grid, 5, 2, 1);
 ds_grid_set(enemy_hp_grid, 5, 3, 1);
+if (global.hard_mode) {
+    for (var _x = 0; _x < enemy_grid_width; _x++) for (var _y = 0; _y < enemy_grid_height; _y++) {
+        if (ds_grid_get(enemy_hp_grid, _x, _y) > 0) ds_grid_set(enemy_hp_grid, _x, _y, 2);
+    }
+}
 
 image_blend = c_fuchsia;
+image_xscale = 1.5;
+image_yscale = 1.5;
+x = room_width / 2 - sprite_get_width(sprite_index) * image_xscale / 2;
+y = room_height / 2 - sprite_get_height(sprite_index) * image_yscale / 2;
 movement_mode = "orbit";
 anchor_x = x;
 anchor_y = y;
 move_angle = 0;
 move_radius = 80;
-orbit_speed = 1.4;
-phase_timer = irandom_range(180, 240);
-move_speed = 2;
+orbit_speed = global.hard_mode ? 2.0 : 1.4;
+phase_timer = global.hard_mode ? irandom_range(135, 180) : irandom_range(180, 240);
+move_speed = global.hard_mode ? 2.8 : 2;
 target_x = x;
 target_y = y;
 
 // The circle fires two rotating fans of projectiles and deals a five-cell diamond.
-shoot_timer = 35;
+shoot_timer = global.hard_mode ? 24 : 35;
 spiral_angle = 0;
-attack_shape = [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]];
+spiral_frames = 0;
+spiral_cooldown = global.hard_mode ? 145 : 210;
+attack_shape = global.hard_mode
+    ? [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]]
+    : [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]];

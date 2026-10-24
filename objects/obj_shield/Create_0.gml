@@ -1,0 +1,10 @@
+owner_id = Player;
+attack_direction = 0;
+age = 0;
+duration = 10;
+shield_width = 126;
+shield_depth = 26;
+image_xscale = shield_width / sprite_get_width(spr_shield);
+image_yscale = 0.4;
+image_angle = 90;
+block_sound_cooldown = 0;

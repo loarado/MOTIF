@@ -14,7 +14,6 @@
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"a5df6f90-b952-49dd-9b10-935b4b5f61a9","name":"a5df6f90-b952-49dd-9b10-935b4b5f61a9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"39d15264-7507-4f0c-8f55-cfb99a567c18","name":"39d15264-7507-4f0c-8f55-cfb99a567c18","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"123cabfa-f34a-495c-8649-547eddadd325","name":"123cabfa-f34a-495c-8649-547eddadd325","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"dc1597b6-fc5b-4814-af8a-5828de4b83ef","name":"dc1597b6-fc5b-4814-af8a-5828de4b83ef","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
@@ -22,8 +21,8 @@
   "height":64,
   "HTile":false,
   "layers":[
+    {"$GMImageLayer":"","%Name":"e3990db2-1141-4982-9017-8ae8efc0273b","blendMode":0,"displayName":"Layer 2","isLocked":false,"name":"e3990db2-1141-4982-9017-8ae8efc0273b","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
     {"$GMImageLayer":"","%Name":"790777a8-ad9d-47cd-bc0d-96ddb4dd72f6","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"790777a8-ad9d-47cd-bc0d-96ddb4dd72f6","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
-    {"$GMImageLayer":"","%Name":"b598d290-4868-437b-88cb-48483820df20","blendMode":0,"displayName":"default","isLocked":false,"name":"b598d290-4868-437b-88cb-48483820df20","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"StartButtonSprite",
   "nineSlice":null,
@@ -53,7 +52,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":4.0,
+    "length":3.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -79,11 +78,8 @@
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"39d15264-7507-4f0c-8f55-cfb99a567c18","path":"sprites/StartButtonSprite/StartButtonSprite.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"38e5fae1-728d-4182-b538-5f1640974abf","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"123cabfa-f34a-495c-8649-547eddadd325","path":"sprites/StartButtonSprite/StartButtonSprite.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3db970ff-0539-4ba4-a93b-c150d2193ee7","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"dc1597b6-fc5b-4814-af8a-5828de4b83ef","path":"sprites/StartButtonSprite/StartButtonSprite.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"f02fe044-0a5f-48cd-a642-ea4cc7eac34a","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+              },"Disabled":false,"id":"f02fe044-0a5f-48cd-a642-ea4cc7eac34a","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
