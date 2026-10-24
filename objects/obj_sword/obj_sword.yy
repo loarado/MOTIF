@@ -23,6 +23,7 @@
   "physicsLinearDamping":0.1,
   "physicsObject":false,
   "physicsRestitution":0.1,
+  "physicsSensor":false,
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
@@ -30,7 +31,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"Sprite12",
+    "path":"sprites/Sprite12/Sprite12.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

@@ -12,8 +12,8 @@
     "path":"Patterns.yyp",
   },
   "parentObjectId":{
-    "name":"obj_enemy",
-    "path":"objects/obj_enemy/obj_enemy.yy",
+    "name":"obj_enemy_square",
+    "path":"objects/obj_enemy_square/obj_enemy_square.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

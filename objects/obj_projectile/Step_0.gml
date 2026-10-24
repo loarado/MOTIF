@@ -14,6 +14,11 @@ if (place_meeting(x, y, obj_wall) || x < 0 || x > room_width || y < 0 || y > roo
 // Check collision with Player
 if (place_meeting(x, y, Player)) {
     var _p = instance_find(Player, 0);
+    if (_p.invincibility_timer > 0) {
+        instance_destroy();
+        exit;
+    }
+
     var _shape_len = array_length(damage_shape);
     var _valid_spots = [];
     var _fallback_spots = [];
@@ -49,20 +54,31 @@ if (place_meeting(x, y, Player)) {
     }
     
     // Apply pattern damage to the Player's hp_grid
+    var _indicator_cells = [];
+    var _did_damage = false;
     if (_chosen[0] != -1) {
         for (var i = 0; i < _shape_len; i++) {
             var _tx = _chosen[0] + damage_shape[i][0];
             var _ty = _chosen[1] + damage_shape[i][1];
+            // Keep every cell in the indicator, even when it falls beyond the health grid.
+            array_push(_indicator_cells, [_tx, _ty]);
             
             // FOOLPROOF BOUNDS CHECK
             if (_tx >= 0 && _tx < array_length(_p.hp_grid) && _ty >= 0 && _ty < array_length(_p.hp_grid[0])) {
                 if (_p.hp_grid[_tx][_ty] > 0) {
                     _p.hp_grid[_tx][_ty] -= 1;
                     if (_p.hp_grid[_tx][_ty] == 0) _p.hp_grid[_tx][_ty] = -1; // Flip 0 to -1 (damaged)
+                    _did_damage = true;
                 }
             }
         }
     }
+
+    if (array_length(_indicator_cells) > 0) {
+        _p.damage_indicator_cells = _indicator_cells;
+        _p.damage_indicator_timer = 45;
+    }
+    if (_did_damage) _p.invincibility_timer = _p.invincibility_duration;
     
     instance_destroy();
 }

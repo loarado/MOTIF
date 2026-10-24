@@ -15,24 +15,36 @@ if (place_meeting(x, y, Player)) {
     else if (upgrade_type == "expand_grid") {
         with (Player) {
             if (grid_width < 5) {
+                var _old_width = grid_width;
+                var _old_height = grid_height;
                 grid_width++;
                 grid_height++;
-            }
-            // Fill new expanded grid directly on the Player
-            for (var _x = 0; _x < grid_width; _x++) {
+                // Initialize only the added row and column; preserve existing health.
+                for (var _x = 0; _x < grid_width; _x++) {
+                    hp_grid[_x][_old_height] = 1;
+                }
                 for (var _y = 0; _y < grid_height; _y++) {
-                    hp_grid[_x][_y] = 1; 
+                    hp_grid[_old_width][_y] = 1;
                 }
             }
         }
     }
-    // Option 3: Upgrade Attack Pattern to a 3-Block L-Shape
-    else if (upgrade_type == "attack_L") {
-        Player.my_attack_pattern = [[0, 0], [1, 0], [0, 1]];
+    // Pause combat until the player attaches one new square to the attack shape.
+    else if (upgrade_type == "attack_add") {
+        with (Player) {
+            attack_upgrade_active = true;
+            attack_upgrade_dragging = false;
+            attack_upgrade_has_target = false;
+            global.combat_active = true;
+        }
     }
-    // Option 4: Upgrade Attack Pattern to a 5-Block Cross
-    else if (upgrade_type == "attack_cross") {
-        Player.my_attack_pattern = [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]];
+    // Shorten both missed-attack and landed-attack cooldowns.
+    else if (upgrade_type == "faster_attack") {
+        with (Player) {
+            attack_miss_cooldown = max(4, attack_miss_cooldown - 2);
+            attack_hit_cooldown = max(60, attack_hit_cooldown - 15);
+            attack_cooldown = max(0, attack_cooldown - 30);
+        }
     }
     
     // Destroy ALL treasure pedestals in the room so the player can only pick ONE!
