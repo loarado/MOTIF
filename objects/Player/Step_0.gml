@@ -47,18 +47,14 @@ if (!global.combat_active) {
     }
     y += _vspd;
 
-    // Cooldown and Attack Trigger
+    // Cooldown and mouse-aimed sword attack
     if (attack_cooldown > 0) attack_cooldown--;
 
-    if (attack_cooldown <= 0 && keyboard_check_pressed(vk_space)) {
-        var _enemy = instance_nearest(x, y, obj_enemy);
-        if (_enemy != noone && distance_to_object(_enemy) < 40) {
-            global.combat_active = true;
-            global.target_enemy = _enemy;
-            attack_cooldown = 180;
-            combat_timer = 300;
-            is_dragging = false;
-        }
+    if (attack_cooldown <= 0 && mouse_check_button_pressed(mb_left)) {
+        var _sword = instance_create_layer(x, y, layer, obj_sword);
+        _sword.owner_id = id;
+        _sword.attack_direction = point_direction(x, y, mouse_x, mouse_y);
+        attack_cooldown = attack_miss_cooldown;
     }
 } 
 // ==========================================

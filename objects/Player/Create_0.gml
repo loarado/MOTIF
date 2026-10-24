@@ -20,6 +20,8 @@ move_speed = 4;
 global.combat_active = false;
 global.target_enemy = noone;
 attack_cooldown = 0;
+attack_miss_cooldown = 12;
+attack_hit_cooldown = 180;
 combat_timer = 0;
 
 // Define a 2-block horizontal attack pattern
